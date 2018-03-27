@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     //new SendDeviceDetails.execute("http://52.88.194.67:8080/IOTProjectServer/registerDevice", postData.toString());
-                    new SendDeviceDetails().execute("http://192.168.4.1", postData.toString());
+                    new SendDeviceDetails().execute("http://192.168.4.1:8080/api/config", postData.toString());
                    // new SendDeviceDetails.execute();
 
                 } catch (JSONException e) {
