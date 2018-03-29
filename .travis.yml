@@ -1,0 +1,22 @@
+language: android
+android:
+  components:
+    - build-tools-26.0.2
+    - android-26
+    - extra
+    
+ deploy:
+  provider: releases
+  file: mediot.apk
+  skip_cleanup: true
+  on:
+    tags: true
+    jdk: oraclejdk8
+    all_branches: true
+    on_success: always
+    on_failure: never
+  api_key:
+    secure:  8a12ccfd0fbd13bfc89ce7c58a8d7d7e2c85c57d
+    
+    
+    
