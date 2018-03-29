@@ -12,8 +12,6 @@ android:
   on:
     tags: 
       all_branches: true
-      on_success: always
-      on_failure: never
    jdk: oraclejdk8
    api_key:
     secure:  8a12ccfd0fbd13bfc89ce7c58a8d7d7e2c85c57d
