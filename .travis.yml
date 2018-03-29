@@ -1,20 +1,23 @@
 language: android
+jdk: oraclejdk8
+env:
+  global:
+    - ANDROID_TARGET=android-15
+    - ANDROID_ABI=armeabi-v7a
 android:
   components:
-    - build-tools-26.0.2
-    - android-26
-    - extra
-    
- deploy:
-  provider: releases
-  file: mediot.apk
-  skip_cleanup: true
-  on:
-    tags: 
-      all_branches: true
-   jdk: oraclejdk8
-   api_key:
-    secure:  8a12ccfd0fbd13bfc89ce7c58a8d7d7e2c85c57d
-    
-    
-    
+  - tools
+  - platform-tools
+  - build-tools-23.0.3
+  - android-23
+  - extra-android-m2repository
+  - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+script:
+  - ./gradlew build jacocoTestReport assembleAndroidTest
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
+  - ./gradlew connectedCheck
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
